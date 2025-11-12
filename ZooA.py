@@ -12,7 +12,6 @@ class ZooA:
     def __init__(self):
         pass
 
-
     def add_animal(self, age, sex, species, date_birth, color, weight, came_from, habitat,
                  name):
 
@@ -21,8 +20,6 @@ class ZooA:
         date_arrival = datetime.today().strftime('%d-%m-%y')
         ZooA.animal_count += 1
         ZooA.animal_id += 1
-
-        print(species, animal_id, name, date_birth, weight, color, came_from, habitat, date_arrival)
 
         animal_info = {
             'Species' : species,
@@ -125,8 +122,9 @@ class ZooA:
                 output.write(str(tiger_value) + '\n')
             output.write('\n\n')
 
-            output.write(''.center(100, '-'))
-            output.write(' END OF REPORT '.center(100, '-'))
-            output.write(''.center(100, '='))
+          
+            output.write(' END OF REPORT '.center(100, '='))
+            
+
 
 
