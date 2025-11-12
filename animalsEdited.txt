@@ -1,0 +1,16 @@
+4, female, hyena, spring, tan, 70 pounds, Friguia Park, Tunisia
+12, male, hyena, fall, brown, 150 pounds, Friguia Park, Tunisia
+4, male, hyena, spring, black, 120 pounds, Friguia Park, Tunisia
+8, female, hyena, unknown, black and tan striped, 105 pounds, Friguia Park, Tunisia
+6, female, lion, spring, tan, 300 pounds, Zanzibar, Tanzania
+12, female, lion, winter, dark tan, 375 pounds, KopeLion, Tanzania
+22, male, lion, fall, golden, 450 pounds, Zanzibar, Tanzania
+4, female, lion, spring, tan and brown, 275 pounds, KopeLion, Tanzania
+2, male, tiger, spring, gold and tan stripes, 270 pounds, Dhaka, Bangladesh
+4, female, tiger, spring, black stripes, 400 pounds, Dhaka, Bangladesh
+18, male, tiger, fall, gold and tan, 300 pounds, Bardia, Nepal
+3, female, tiger, spring, black stripes, 285 pounds, Bardia, Nepal
+7, male, bear, spring, brown, 320 pounds, Alaska Zoo, Alaska
+25, female, bear, spring, black, 425 pounds, Woodland park Zoo, Washington 
+4, female, bear, fall, black, 355 pounds, Woodland park Zoo, Washington 
+4, male, bear, spring, brown, 405 pounds, Alaska Zoo, Alaska
