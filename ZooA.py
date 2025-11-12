@@ -9,51 +9,54 @@ class ZooA:
     #universal dictionary lists to hold animal information.
     animals = {'hyena':[], 'lion':[], 'tiger':[], 'bear':[]}
 
-    def __init__(self, age, sex, species, date_birth, color, weight, came_from, habitat,
+    def __init__(self):
+        pass
+
+
+    def add_animal(self, age, sex, species, date_birth, color, weight, came_from, habitat,
                  name):
+
+        animal_id = f'{species[:3]}{ZooA.animal_id}'
+        species = species.lower()
         date_arrival = datetime.today().strftime('%d-%m-%y')
-        self._age = age
-        self._sex = sex
-        self._species = species.lower()
-        self._date_birth = date_birth
-        self._color = color
-        self._weight = weight
-        self._came_from = came_from
-        self._habitat = habitat
-        self._name = name
-        animal_id = f'{self._species[:3]}{ZooA.animal_id}'
         ZooA.animal_count += 1
         ZooA.animal_id += 1
 
+        print(species, animal_id, name, date_birth, weight, color, came_from, habitat, date_arrival)
+
         animal_info = {
+            'Species' : species,
             'ID': animal_id,
             'Name': name,
-            'Sex': self._sex,
-            'Date of Birth': self._date_birth,
-            'Color': self._color,
-            'Sent From': self._came_from,
-            'Habitat': self._habitat,
-            'Arrived On': date_arrival}
+            'Age': age,
+            'Sex': sex,
+            'Date of Birth': date_birth,
+            'Weight': weight,
+            'Color': color,
+            'Sent From': came_from,
+            'Habitat': habitat,
+            'Arrived On': date_arrival
+        }
 
-        if self._species in ZooA.animals:
-            ZooA.animals[self._species].append(animal_info)
+        if species in ZooA.animals:
+            ZooA.animals[species].append(animal_info)
         else:
-            print(f'UNKNOWN SPECIES: {self._species}')
-    
+            print(f'UNKNOWN SPECIES: {species}') #move init items to here for manually adding animals
+
     @staticmethod
     def string_to_tuple(animal_string):
-        age, sex, species, season, color, weight, came_from, habitat = animal_string.split()
-        return int(age), str(sex), str(species), str(season), str(color), int(weight), str(came_from), str(habitat)
+        parts = [p.strip() for p in animal_string.split(',')]
+        age, sex, species, season, color, weight, came_from, habitat = parts
+        return int(age), sex, species, season, color, weight, came_from, habitat
 
     @staticmethod
     def tuple_to_string(animal_tuple):
         animal_string = ' '.join(map(str, animal_tuple))  #step 2: now send to string_to_tuple to split, and assign value.
         return animal_string
 
-
     def files(self, animal_file, name_file):
         animal_data = []
-        name = []
+        name_list = []
         try:
             with open(animal_file, 'r') as file1:
                 lines = file1.readlines()
@@ -61,29 +64,33 @@ class ZooA:
                 animal_data.extend(animal_tuple)
             with open(name_file, 'r') as file:
                 for line in file:
-                    name.append(line.strip())
-            random.shuffle(name)
-            for data, animal_name in zip(animal_data, name):
+                    temp = line.split(',')
+                    for i in temp:
+                        if len(i) <= 1: continue
+                        name_list.append(i.strip())
+            random.shuffle(name_list)
+            for data, animal_name in zip(animal_data, name_list):
                 age, sex, species, season, color, weight, came_from, habitat = data
-                date_birth = ZooA.date_birth(age, season)
-                ZooA(age, sex, species, date_birth, color, weight, came_from, habitat, animal_name)
-            return animal_data, name
+                date_birth = ZooA.birthday(age, season)
+                name = name_list
+                self.add_animal(age, sex, species, date_birth, color, weight, came_from, habitat, animal_name)
+            return animal_data, name_list
         except FileNotFoundError as e:
             print(f'File Not Found: {e}')
             print('Please check file name and try again.')
 
     @staticmethod
-    def date_birth(age, season):
+    def birthday(age, season):
         day = 21
         year = datetime.now().year - age
-        month = season
-        if month == 'winter':
+        month = season.upper()
+        if month == 'WINTER':
             month = 'JAN'
-        elif month == 'spring':
+        elif month == 'SPRING':
             month = 'APR'
-        elif month == 'summer':
+        elif month == 'SUMMER':
             month = 'JUL'
-        elif month == 'fall':
+        elif month == 'FALL':
             month = 'NOV'
         else: month = 'JAN'
         date_birth = f'{year}-{month}-{day}'
@@ -118,11 +125,8 @@ class ZooA:
                 output.write(str(tiger_value) + '\n')
             output.write('\n\n')
 
+            output.write(''.center(100, '-'))
+            output.write(' END OF REPORT '.center(100, '-'))
             output.write(''.center(100, '='))
-            output.write(' END OF REPORT '.center(100))
-            output.write(''.center(100, '='))
-            output.close()
 
-        new_file = open('zooPopulation.txt', 'r')
-        file_contents = new_file.read()
-        print(file_contents)
+
