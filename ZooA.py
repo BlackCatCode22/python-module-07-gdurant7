@@ -21,6 +21,7 @@ class ZooA:
         ZooA.animal_count += 1
         ZooA.animal_id += 1
 
+        #animal_infor sets what information is sorted into animals dictionary    
         animal_info = {
             'Species' : species,
             'ID': animal_id,
@@ -41,17 +42,17 @@ class ZooA:
             print(f'UNKNOWN SPECIES: {species}') #move init items to here for manually adding animals
 
     @staticmethod
-    def string_to_tuple(animal_string):
+    def string_to_tuple(animal_string): #turns each line into a tuple, and assignes value based on location
         parts = [p.strip() for p in animal_string.split(',')]
         age, sex, species, season, color, weight, came_from, habitat = parts
         return int(age), sex, species, season, color, weight, came_from, habitat
 
     @staticmethod
-    def tuple_to_string(animal_tuple):
+    def tuple_to_string(animal_tuple): #not needed, but left since it could be used later
         animal_string = ' '.join(map(str, animal_tuple))  #step 2: now send to string_to_tuple to split, and assign value.
         return animal_string
 
-    def files(self, animal_file, name_file):
+    def files(self, animal_file, name_file): #reads the animal and name files
         animal_data = []
         name_list = []
         try:
@@ -66,7 +67,7 @@ class ZooA:
                         if len(i) <= 1: continue
                         name_list.append(i.strip())
             random.shuffle(name_list)
-            for data, animal_name in zip(animal_data, name_list):
+            for data, animal_name in zip(animal_data, name_list): #zips/combines animal and names
                 age, sex, species, season, color, weight, came_from, habitat = data
                 date_birth = ZooA.birthday(age, season)
                 name = name_list
@@ -77,7 +78,7 @@ class ZooA:
             print('Please check file name and try again.')
 
     @staticmethod
-    def birthday(age, season):
+    def birthday(age, season): #changes the season to a year-month-Day format
         day = 21
         year = datetime.now().year - age
         month = season.upper()
@@ -94,7 +95,7 @@ class ZooA:
         return date_birth
 
     @staticmethod
-    def write_report():
+    def write_report(): #writes the report and saves it as a txt file
         date_arrival = datetime.today().strftime('%d-%m-%y')
         with open('zooPopulation.txt', 'w') as output:
             output.write(' ZOO POPULATION REPORT '.center(100, '=') + '\n\n')
@@ -122,9 +123,9 @@ class ZooA:
                 output.write(str(tiger_value) + '\n')
             output.write('\n\n')
 
-          
-            output.write(' END OF REPORT '.center(100, '='))
+          output.write(' END OF REPORT '.center(100, '='))
             
+
 
 
 
